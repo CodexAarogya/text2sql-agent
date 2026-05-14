@@ -1,12 +1,14 @@
 from langchain.agents import  create_agent
 from app.tools import query_customer_db
 from app.llm import llm
+from app.structured_output import ModelOutput
 
 tools = [query_customer_db]
 
 agent = create_agent(
     model=llm,
     tools=tools,
+    response_format=ModelOutput,
     system_prompt="""
     You are a SQL assistant for PostgreSQL.
 
