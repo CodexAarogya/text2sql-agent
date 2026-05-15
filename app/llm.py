@@ -1,11 +1,14 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openrouter import ChatOpenRouter
 from app.settings import settings
 
-llm = ChatGoogleGenerativeAI(
-    model = "gemini-2.0-flash-lite",
-    api_key = settings.GEMINI_API_KEY,
+llm = ChatOpenRouter(
+    model="auto",
+    api_key=settings.OPENROUTER_API_KEY,
     temperature = 0,
 )
+
+
+
 
 
 

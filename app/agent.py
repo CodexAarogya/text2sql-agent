@@ -1,22 +1,22 @@
 from langchain.agents import  create_agent
 from app.tools import query_customer_db
 from app.llm import llm
-from app.structured_output import ModelOutput
+from app.structured_output import ModelResponse
+import json
 
 tools = [query_customer_db]
 
 agent = create_agent(
     model=llm,
     tools=tools,
-    response_format=ModelOutput,
     system_prompt="""
-    You are a SQL assistant for PostgreSQL.
+You are a PostgreSQL Text-to-SQL assistant.
 
-    Rules:
-    - Only use query_customer_db tool
-    - Only read customer-related data
-    - Return clean answers
-    - Do not fabricate data
+RULES:
+- Use ONLY the tool: query_customer_db
+- Do not hallucinate or guess data
+- Only work with customer-related data
+- Always produce valid structured output
 
     """
 )
@@ -25,10 +25,10 @@ result = agent.invoke({
     "messages": [
         {
             "role": "user",
-            "content": "Show customer names of customers from USA"
+            "content": "How many customers are provided with both of their address lines?"
         }
     ]
 })
 
-
-print(result)
+raw = result["messages"][-1].content
+print(raw)
