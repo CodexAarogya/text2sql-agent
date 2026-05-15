@@ -15,7 +15,7 @@ result = agent.invoke({
     "messages": [
         {
             "role": "user",
-            "content": "How many customers are provided with both of their address lines?"
+            "content": "List all the customer names from USA."
         }
     ]
 })
